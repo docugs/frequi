@@ -3,7 +3,7 @@
     <b-navbar toggleable="sm" type="dark" variant="primary">
       <router-link class="navbar-brand" exact to="/">
         <img class="logo" src="@/assets/freqtrade-logo.png" alt="Home Logo" />
-        <span class="navbar-brand-title d-sm-none d-md-inline">Freqtrade UI</span>
+        <span class="navbar-brand-title d-sm-none d-md-inline">CryptoBot UI</span>
       </router-link>
 
       <!-- TODO: For XS breakpoint, this should be here...  -->
@@ -178,7 +178,7 @@ export default defineComponent({
       }
     };
     const setTitle = () => {
-      let title = 'freqUI';
+      let title = 'UI';
       if (settingsStore.openTradesInTitle === OpenTradeVizOptions.asTitle) {
         title = `(${botStore.activeBotorUndefined?.openTradeCount}) ${title}`;
       }

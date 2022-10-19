@@ -57,8 +57,8 @@
           <br />
           <span v-if="errorMessageCORS">
             Please also check your bot's CORS configuration:
-            <a href="https://www.freqtrade.io/en/latest/rest-api/#cors"
-              >Freqtrade CORS documentation</a
+            <!-- <a href="https://www.freqtrade.io/en/latest/rest-api/#cors"
+              >Freqtrade CORS documentation</a -->
             ></span
           >
         </b-alert>
