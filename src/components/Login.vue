@@ -33,7 +33,7 @@
           id="username-input"
           v-model="auth.username"
           required
-          placeholder="Freqtrader"
+          placeholder="rad"
           @keydown.enter.native="handleOk"
         ></b-form-input>
       </b-form-group>
@@ -55,12 +55,7 @@
         <b-alert v-if="errorMessage" class="alert-wrap" show variant="warning">
           {{ errorMessage }}
           <br />
-          <span v-if="errorMessageCORS">
-            Please also check your bot's CORS configuration:
-            <!-- <a href="https://www.freqtrade.io/en/latest/rest-api/#cors"
-              >Freqtrade CORS documentation</a -->
-            ></span
-          >
+         
         </b-alert>
       </div>
       <div v-if="inModal === false" class="float-right">
