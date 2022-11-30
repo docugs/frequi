@@ -2,10 +2,20 @@
   <div>
     <div v-if="addNew">
       <b-form-group label="Add indicator" label-for="indicatorSelector">
+        <b-input-group size="sm">
+          <b-form-input v-model="indicatorFilter" placeholder="Filter indicators"></b-form-input>
+          <b-input-group-append>
+            <Reset
+              class="pointer align-self-center ml-1"
+              :size="18"
+              @click="indicatorFilter = ''"
+            ></Reset>
+          </b-input-group-append>
+        </b-input-group>
         <b-form-select
           id="indicatorSelector"
           v-model="selAvailableIndicator"
-          :options="columns"
+          :options="filteredIndicators"
           :select-size="4"
         >
         </b-form-select>
@@ -58,7 +68,7 @@
       <b-button
         v-if="addNew"
         class="ml-1 flex-grow-1"
-        variant="primary"
+        variant="secondary"
         title="Add "
         size="sm"
         @click="clickCancel"
@@ -72,11 +82,15 @@
 <script lang="ts">
 import { ChartType, IndicatorConfig } from '@/types';
 import randomColor from '@/shared/randomColor';
+import Reset from 'vue-material-design-icons/CloseCircleOutline.vue';
 
 import { defineComponent, computed, ref, watch } from 'vue';
 
 export default defineComponent({
   name: 'PlotIndicator',
+  components: {
+    Reset,
+  },
   props: {
     value: { required: true, type: Object as () => Record<string, IndicatorConfig> },
     columns: { required: true, type: Array as () => string[] },
@@ -87,8 +101,15 @@ export default defineComponent({
     const selColor = ref(randomColor());
     const graphType = ref<ChartType>(ChartType.line);
     const availableGraphTypes = ref(Object.keys(ChartType));
+    const indicatorFilter = ref('');
     const selAvailableIndicator = ref('');
     const cancelled = ref(false);
+
+    const filteredIndicators = computed(() => {
+      return props.columns.filter((col) =>
+        col.toLowerCase().includes(indicatorFilter.value.toLowerCase()),
+      );
+    });
 
     const newColor = () => {
       selColor.value = randomColor();
@@ -142,6 +163,8 @@ export default defineComponent({
       newColor,
       emitIndicator,
       clickCancel,
+      indicatorFilter,
+      filteredIndicators,
     };
   },
 });
@@ -155,5 +178,8 @@ export default defineComponent({
   height: 25px;
   width: 25px;
   vertical-align: center;
+}
+.pointer {
+  cursor: pointer;
 }
 </style>
